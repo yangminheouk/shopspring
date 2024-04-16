@@ -35,7 +35,9 @@ public class ItemImgService {
         }
         itemImg.updateItemImg(oriImgName,imgName,imgUrl);
         itemImgRepository.save(itemImg);
-    }public List<ItemImgDto> getItemImgDtoList(Long itemId){
+    }
+
+    public List<ItemImgDto> getItemImgDtoList(Long itemId){
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
         List<ItemImgDto> itemImgDtoList = new ArrayList<>();
 
