@@ -27,12 +27,12 @@ import java.util.Optional;
 public class ItemController {
     private final ItemService itemService;
 
-    @GetMapping(value = "/admin/item/new")
+    @GetMapping(value = "admin/item/new")
     public String itemForm(Model model){
         model.addAttribute("itemFormDto", new ItemFormDto());
-        return "/item/itemForm";
+        return "item/itemForm";
     }
-    @PostMapping(value = "/admin/item/new")
+    @PostMapping(value = "admin/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model, @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList){
         if(bindingResult.hasErrors()){
             return "item/itemForm";
@@ -49,7 +49,7 @@ public class ItemController {
         }
         return "redirect:/";
     }
-    @GetMapping(value = "/admin/item/{itemId}")
+    @GetMapping(value = "admin/item/{itemId}")
     public String itemDtl(@PathVariable("itemId") Long itemId, Model model){
         try{
             ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
@@ -61,7 +61,7 @@ public class ItemController {
         }
         return "item/itemForm";
     }
-    @PostMapping(value = "/admin/item/{itemId}")
+    @PostMapping(value = "admin/item/{itemId}")
     public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {
         if (bindingResult.hasErrors()) {
             return "item/itemForm";
@@ -78,7 +78,7 @@ public class ItemController {
         }
         return "redirect:/";
     }
-    @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
+    @GetMapping(value = {"admin/items", "/admin/items/{page}"})
     public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page")Optional<Integer> page, Model model){
         Pageable pageable = PageRequest.of(page.orElse(0),3);
 
@@ -89,7 +89,7 @@ public class ItemController {
         model.addAttribute("maxPage", 5);
         return "item/itemMng";
     }
-    @GetMapping(value = "/item/{itemId}")
+    @GetMapping(value = "item/{itemId}")
     public String itemDtl(Model model, @PathVariable("itemId") Long itemId){
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         model.addAttribute("item", itemFormDto);
